@@ -96,52 +96,9 @@ int main() {
 
 
 	Shader* shader = new Shader("shaders/VertexShader.txt", "shaders/FragmentShader.txt");	//Shader (Vertex, Fragment) creation, compilation, error checking and linking shaders into shaderprogram.
-
-	//float vertexData[] = {
-	//	-0.5f, -0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-	//	0.5f, -0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//	0.5f,  0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//	0.5f,  0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//	-0.5f,  0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-	//	-0.5f, -0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-
-	//	-0.5f, -0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-	//	0.5f, -0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//	0.5f,  0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//	0.5f,  0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//	-0.5f,  0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-	//	-0.5f, -0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-
-	//	-0.5f,  0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-	//	-0.5f,  0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-	//	-0.5f, -0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-	//	-0.5f, -0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-	//	-0.5f, -0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-	//	-0.5f,  0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-
-	//	0.5f,  0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//	0.5f,  0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//	0.5f, -0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//	0.5f, -0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//	0.5f, -0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//	0.5f,  0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-
-	//	-0.5f, -0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-	//	0.5f, -0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//	0.5f, -0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//	0.5f, -0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//	-0.5f, -0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-	//	-0.5f, -0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-
-	//	-0.5f,  0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-	//	0.5f,  0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//	0.5f,  0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//	0.5f,  0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//	-0.5f,  0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-	//	-0.5f,  0.5f, -0.5f, 1.0f, 0.647f, 0.0f
-	//};
-
-	int Stacks = 30, Sectors = 30;
+	
+	//MY CODE - Render time - 19.70s Stacks and Sectors = 1000
+	int Stacks = 1000, Sectors = 1000;
 	float Radius = 1.0f;
 	std::vector<float> vertices;
 
@@ -150,7 +107,7 @@ int main() {
 		float phi = (glm::pi <float>()/2) - stackStep * glm::pi <float>();
 		float y = Radius*sinf(phi);
 		// Loop Through Slices
-		for (int j = 0; j <= Sectors; ++j) {
+		for (int j = 0; j < Sectors; ++j) {
 			float sectorStep = j / (float)Sectors;
 			float theta = sectorStep * (glm::pi <float>() * 2);
 			// Calc The Vertex Positions
@@ -163,73 +120,56 @@ int main() {
 		}
 	}
 
-	std::vector<int> indices;
-	int v1, v2;
-	for()
-	
 	/*
-		
-
+	diagram for indices
+	v1  v1+1
+	|   /|
+	|  / |
+	| /  |
+	|/   |
+	v2  v2+1
 	*/
 
-	//@TODO: Add indices vector to provide to element buffer object (EBO)
+	std::vector<int> indices;
+	int v1, v2;
+	for (int i = 0; i < Stacks; ++i) {
+		v1 = i*(Stacks);
+		v2 = v1 + Sectors;
+		for (int j = 0; j < Sectors; j++) {
+			//for bottom stack only single triangle required
+			if (j != 0) {
+				indices.push_back(v1);
+				j != Sectors - 1 ? indices.push_back(v1 + 1) : indices.push_back(v1 - Sectors + 1);
+				indices.push_back(v2);
+			}
+			//for top stack also only single triangle required
+			if (j != Sectors - 1) {
+				j != Sectors - 1 ? indices.push_back(v1 + 1) : indices.push_back(v1 - Sectors + 1);
+				indices.push_back(v2);
+				j != Sectors - 1 ? indices.push_back(v2 + 1) : indices.push_back(v2 - Sectors + 1);
+			}
+			v1++, v2++;
+		}
+	}
 
-	//std::vector<float> vec = {
-	//		-0.5f, -0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-	//		0.5f, -0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//		0.5f,  0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//		0.5f,  0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//		-0.5f,  0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-	//		-0.5f, -0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-
-	//		-0.5f, -0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-	//		0.5f, -0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//		0.5f,  0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//		0.5f,  0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//		-0.5f,  0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-	//		-0.5f, -0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-
-	//		-0.5f,  0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-	//		-0.5f,  0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-	//		-0.5f, -0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-	//		-0.5f, -0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-	//		-0.5f, -0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-	//		-0.5f,  0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-
-	//		0.5f,  0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//		0.5f,  0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//		0.5f, -0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//		0.5f, -0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//		0.5f, -0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//		0.5f,  0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-
-	//		-0.5f, -0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-	//		0.5f, -0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//		0.5f, -0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//		0.5f, -0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//		-0.5f, -0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-	//		-0.5f, -0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-
-	//		-0.5f,  0.5f, -0.5f, 1.0f, 0.647f, 0.0f,
-	//		0.5f,  0.5f, -0.5f,  1.0f, 0.647f, 0.0f,
-	//		0.5f,  0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//		0.5f,  0.5f,  0.5f,  1.0f, 0.647f, 0.0f,
-	//		-0.5f,  0.5f,  0.5f, 1.0f, 0.647f, 0.0f,
-	//		-0.5f,  0.5f, -0.5f, 1.0f, 0.647f, 0.0f
-	//};
-
-	unsigned int VBO, VAO;
+	unsigned int VBO, VAO, EBO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
 	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(float), &vertices[0], GL_STATIC_DRAW);
 
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(float), &indices[0], GL_STATIC_DRAW);
+
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 	//glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 	//glEnableVertexAttribArray(1);
+
+
 
 	//---------------------------------------------------Uncomment for using textures-------------------------------------------------------
 	/*unsigned int tex1;
@@ -276,7 +216,8 @@ int main() {
 		shader->setMat4("view", view);
 		shader->setMat4("transform", view);
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, vertices.size()/3);
+		glDrawElements(GL_TRIANGLES, indices.size() * sizeof(float), GL_UNSIGNED_INT, 0);
+		//glDrawArrays(GL_TRIANGLES, 0, vertices.size()/3);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
@@ -285,34 +226,3 @@ int main() {
 	delete shader;
 	std::cin.get();
 }
-
-//
-////----------------Outside code------------------------
-//// Calc The Vertices
-//
-//for (int i = 0; i <= Stacks; ++i) {
-//	float V = i / (float)Stacks;
-//	float phi = V * glm::pi <float>();
-//	// Loop Through Slices
-//	for (int j = 0; j <= Slices; ++j) {
-//		float U = j / (float)Slices;
-//		float theta = U * (glm::pi <float>() * 2);
-//		// Calc The Vertex Positions
-//		float x = cosf(theta) * sinf(phi);
-//		float y = cosf(phi);
-//		float z = sinf(theta) * sinf(phi);
-//		// Push Back Vertex Data
-//		vertices.push_back(glm::vec3(x, y, z) * Radius);
-//	}
-//}
-//// Calc The Index Positions
-//for (int i = 0; i < Slices * Stacks + Slices; ++i) {
-//	indices.push_back(i);
-//	indices.push_back(i + Slices + 1);
-//	indices.push_back(i + Slices);
-//	indices.push_back(i + Slices + 1);
-//	indices.push_back(i);
-//	indices.push_back(i + 1);
-//}
-//
-//
