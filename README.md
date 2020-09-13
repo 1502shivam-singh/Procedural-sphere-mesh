@@ -1,2 +1,3 @@
 # Mesh-Sphere
-UV sphere mesh created procedurally using OpenGL graphics API
+
+UV sphere mesh created procedurally with indexed drawing using OpenGL graphics API
