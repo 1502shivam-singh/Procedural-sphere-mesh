@@ -104,12 +104,12 @@ int main() {
 
 	for (int i = 0; i <= Stacks; ++i) {
 		float stackStep = i / (float)Stacks;
-		float phi = (glm::pi <float>()/2) - stackStep * glm::pi <float>();
+		float phi = (glm::pi <float>()/2) - stackStep * glm::pi <float>();	// phi is angle made by ray originating from origin, with xz - plane.
 		float y = Radius*sinf(phi);
 		// Loop Through Slices
 		for (int j = 0; j < Sectors; ++j) {
 			float sectorStep = j / (float)Sectors;
-			float theta = sectorStep * (glm::pi <float>() * 2);
+			float theta = sectorStep * (glm::pi <float>() * 2);	// theta is angle made by ray originating from origin, with xy - plane.
 			// Calc The Vertex Positions
 			float x = Radius*sinf(theta) * cosf(phi);
 			float z = Radius*cosf(theta) * cosf(phi);
