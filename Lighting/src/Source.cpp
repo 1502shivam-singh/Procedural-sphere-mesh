@@ -9,7 +9,7 @@
 
 #include<iostream>
 
-void gladInitializing() {		//initializes glad and checks whether glad is initialized or not
+void gladInitializing() {		// Initializes glad and checks whether glad is initialized or not
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
@@ -25,7 +25,7 @@ double lastY = 240.0;
 Camera camera(glm::vec3(0.0f, 0.0f, 1.0f));
 int SCR_WIDTH = 640, SCR_HEIGHT = 480;
 
-void frame_buffer_resizing(GLFWwindow* window, int width, int height) {		//acts as callback in function responsible for size change
+void frame_buffer_resizing(GLFWwindow* window, int width, int height) {		// Acts as callback in function responsible for size change
 	glViewport(0, 0, width, height);
 }
 
@@ -40,7 +40,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	}
 
 	float xoffset = xpos - lastX;
-	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+	float yoffset = lastY - ypos; // Reversed since y-coordinates go from bottom to top
 
 	lastX = xpos;
 	lastY = ypos;
@@ -55,7 +55,7 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 	camera.ProcessMouseScroll(yoffset);
 }
 
-void processInput(GLFWwindow *window)	//checks for input every frame
+void processInput(GLFWwindow *window)	// Checks for input every frame
 {
 	if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, true);
@@ -75,13 +75,13 @@ void processInput(GLFWwindow *window)	//checks for input every frame
 }
 
 int main() {
-	if (glfwInit()) {	//Initialising glfw
+	if (glfwInit()) {	// Initialising glfw
 		std::cout << "initialised";
 	}
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); //providing a window hint (meta data stored with window to tell glfw(in this case) how window wants to be treated)
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // Providing a window hint (meta data stored with window to tell glfw(in this case) how window wants to be treated)
 
-	auto* window = glfwCreateWindow(640, 480, "Hello OpenGL", nullptr, nullptr);	//window creation and checking code
+	auto* window = glfwCreateWindow(640, 480, "Hello OpenGL", nullptr, nullptr);	// Window creation and checking code
 	if (window) {
 		std::cout << "window created successfully";
 	}
@@ -95,7 +95,7 @@ int main() {
 	gladInitializing();
 
 
-	Shader* shader = new Shader("shaders/VertexShader.txt", "shaders/FragmentShader.txt");	//Shader (Vertex, Fragment) creation, compilation, error checking and linking shaders into shaderprogram.
+	Shader* shader = new Shader("shaders/VertexShader.txt", "shaders/FragmentShader.txt");	// Shader (Vertex, Fragment) creation, compilation, error checking and linking shaders into shaderprogram.
 	
 	//MY CODE - Render time - 19.70s Stacks and Sectors = 1000
 	int Stacks = 1000, Sectors = 1000;
